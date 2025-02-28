@@ -100,6 +100,23 @@
         transform: translateY(0);
       }
     }
+
+    @media (max-width: 480px) {
+      .form-container {
+        width: 90%;
+        padding: 15px;
+      }
+      h2 {
+        font-size: 22px;
+      }
+      input, textarea, select {
+        font-size: 14px;
+      }
+      button {
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -123,7 +140,7 @@
       <span id="emailError" class="error"></span>
 
       <label for="dob">Date of Birth:</label>
-      <input type="date" id="dob" name="dob" required>
+      <input type="date" id="dob" name="dob" required placeholder="Enter your DOB">
       <span id="dobError" class="error"></span>
 
       <label for="address">Address:</label>
@@ -165,6 +182,7 @@
   <script>
     document.getElementById("employeeForm").addEventListener("submit", function(event) {
       let valid = true;
+      
       let empId = document.getElementById("empId").value;
       if (!/^[A-Za-z0-9]+$/.test(empId)) {
         document.getElementById("empIdError").innerText = "Only alphanumeric characters allowed";
@@ -189,6 +207,22 @@
         document.getElementById("mobileError").innerText = "";
       }
       
+      let email = document.getElementById("email").value;
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        document.getElementById("emailError").innerText = "Enter a valid email address";
+        valid = false;
+      } else {
+        document.getElementById("emailError").innerText = "";
+      }
+      
+      let address = document.getElementById("address").value;
+      if(!/^[A-Za-z\s]+$/.test(address)){
+        document.getElementById("addressError").innerText = "Only letters and spaces are allowed";
+        valid = false;
+      } else {
+        document.getElementById("addressError").innerText = "";
+      }
+
       if (!valid) {
         event.preventDefault();
       } else {
